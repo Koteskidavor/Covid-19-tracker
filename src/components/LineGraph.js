@@ -1,49 +1,66 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2';
 import numeral from "numeral";
+import {
+    Chart as ChartJS,
+    LineElement,
+    PointElement,
+    LinearScale,
+    TimeScale,
+    Tooltip,
+    Legend,
+} from "chart.js";
+import "chartjs-adapter-date-fns";
+
+ChartJS.register(
+    LineElement,
+    PointElement,
+    LinearScale,
+    TimeScale,
+    Tooltip,
+    Legend
+);
 
 const options = {
-    legend: {
-        display: false,
+    responsive: true,
+    maintainAspectRatio: false,
+
+    plugins: {
+        legend: {
+            display: false,
+        },
+        tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+                label: (context) =>
+                    numeral(context.parsed.y).format('+0,0'),
+            },
+        },
     },
+
     elements: {
         point: {
             radius: 0,
         },
     },
-    maintainAspectRatio: false,
 
-    tooltips: {
-        mode: "index",
-        intersect: false,
-        callback: {
-            label: function (tooltipItem, data) {
-                return numeral(tooltipItem.value).format('+0,0');
+    scales: {
+        x: {
+            type: 'time',
+            time: {
+                parser: 'MM/dd/yy',
+                tooltipFormat: 'PP',
             },
         },
-    },
-    scales: {
-        x: [
-            {
-                type: 'time',
-                time: {
-                    format: "MM/DD/YY",
-                    tooltipFormat: "ll",
-                },
+        y: {
+            grid: {
+                display: false,
             },
-        ],
-        y: [
-            {
-                gridLines: {
-                    display: false,
-                },
-                ticks: {
-                    callback: function (value, index, values) {
-                        return numeral(value).format("0a");
-                    },
-                },
+            ticks: {
+                callback: (value) => numeral(value).format('0a'),
             },
-        ],
+        },
     },
 };
 const buildChartData = (data, casesType) => {

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { MenuItem, FormControl, Select, Card, CardContent, } from "@material-ui/core";
-import InfoBox from "./InfoBox";
-import LineGraph from "./LineGraph";
-import Table from "./Table";
-import { sortData, prettyPrintStat } from "./util";
+import InfoBox from "./components/InfoBox";
+import LineGraph from "./components/LineGraph";
+import Table from "./components/Table";
+import { sortData, prettyPrintStat } from "./components/util";
 import numeral from "numeral";
-import Map from "./Map";
+import Map from "./components/Map";
 import "leaflet/dist/leaflet.css";
 
 const App = () => {
@@ -77,7 +77,7 @@ const App = () => {
                         >
                             <MenuItem value="worldwide">Worldwide</MenuItem>
                             {countries.map((country) => (
-                                <MenuItem key={country.value} value={country.value}>{country.name}</MenuItem>
+                                <MenuItem key={country.name} value={country.value}>{country.name}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
