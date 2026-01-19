@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import {    MenuItem, FormControl, Select, Card, CardContent,} from "@material-ui/core";
+import { MenuItem, FormControl, Select, Card, CardContent, } from "@material-ui/core";
 import InfoBox from "./InfoBox";
 import LineGraph from "./LineGraph";
 import Table from "./Table";
@@ -46,7 +46,6 @@ const App = () => {
         getCountriesData();
     }, []);
 
-    console.log(casesType);
 
     const onCountryChange = async (e) => {
         const countryCode = e.target.value;
@@ -78,7 +77,7 @@ const App = () => {
                         >
                             <MenuItem value="worldwide">Worldwide</MenuItem>
                             {countries.map((country) => (
-                                <MenuItem value={country.value}>{country.name}</MenuItem>
+                                <MenuItem key={country.value} value={country.value}>{country.name}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

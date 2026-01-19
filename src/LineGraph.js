@@ -17,28 +17,28 @@ const options = {
         mode: "index",
         intersect: false,
         callback: {
-            label: function(tooltipItem,data) {
+            label: function (tooltipItem, data) {
                 return numeral(tooltipItem.value).format('+0,0');
             },
         },
     },
     scales: {
-        xAxes: [
+        x: [
             {
                 type: 'time',
                 time: {
-                    format:"MM/DD/YY",
-                    tooltipFormat:"ll",
+                    format: "MM/DD/YY",
+                    tooltipFormat: "ll",
                 },
             },
         ],
-        yAxes: [
+        y: [
             {
                 gridLines: {
                     display: false,
                 },
                 ticks: {
-                    callback: function(value, index, values) {
+                    callback: function (value, index, values) {
                         return numeral(value).format("0a");
                     },
                 },
@@ -50,7 +50,7 @@ const buildChartData = (data, casesType) => {
     let chartData = [];
     let lastDataPoint;
 
-    for(let date in data.cases) {
+    for (let date in data.cases) {
         if (lastDataPoint) {
             let newDataPoint = {
                 x: date,
@@ -75,8 +75,6 @@ function LineGraph({ casesType }) {
                 .then((data) => {
                     let chartData = buildChartData(data, casesType);
                     setData(chartData);
-                    console.log(chartData);
-                    // buildChart(chartData);
                 });
         };
 
